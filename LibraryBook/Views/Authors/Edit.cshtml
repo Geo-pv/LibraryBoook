@@ -1,0 +1,49 @@
+﻿@model LibraryBook.Models.Author
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Удаление автора</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname" class="control-label"></label>
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MiddleName" class="control-label"></label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <link rel="stylesheet" href="~/css/Edit.css"/>
+                <input type="submit" value="Сохранить" class="knopka1" />
+            </div>
+            <br/>
+            <div>
+                <link rel="stylesheet" href="~/css/EditAv1.css"/>
+                  <a class="kp" asp-action="Index">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

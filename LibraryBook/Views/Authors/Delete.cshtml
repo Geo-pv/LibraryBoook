@@ -1,0 +1,37 @@
+﻿@model LibraryBook.Models.Author
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<h3>Вы действительно хотите удалить данного автора?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <link rel="stylesheet" href="~/css/Delete.css"/>
+        <input type="hidden" asp-for="Id" />
+        <input  type="submit" value="Удалить" class="knopka3" /> 
+        <a class="knopka3" asp-action="Index">Назад</a>
+    </form>
+</div>
+

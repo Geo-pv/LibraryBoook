@@ -1,0 +1,23 @@
+﻿.html{
+
+}
+.knopka {
+    margin-top: 20px;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 10px;
+    background: #97ade4;
+    box-shadow: 0 -3px #4d71ca inset;
+    transition: 0.2s;
+}
+
+    .knopka:hover {
+        background: #7b99e4;
+    }
+
+    .knopka:active {
+        background: rgb(33,147,87);
+        
+    }
