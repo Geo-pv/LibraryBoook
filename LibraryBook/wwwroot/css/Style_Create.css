@@ -11,6 +11,7 @@
     background: #97ade4;
     box-shadow: 0 -3px #4d71ca inset;
     transition: 0.2s;
+    border-color:white;
 }
 
     .knopka:hover {
