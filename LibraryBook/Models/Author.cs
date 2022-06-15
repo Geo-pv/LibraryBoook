@@ -7,11 +7,11 @@ namespace LibraryBook.Models
         public int Id { get; set; }
         [Required]
         [Display(Name = "Имя")]
-        public string? Name { get; set; }
+        public string Name { get; set; }
         [Required]
         [Display(Name = "Фамилия")]
-        public string? Surname { get; set; }
-        [Required]
+        public string Surname { get; set; }
+        
         [Display(Name = "Отчество")]
         public string? MiddleName { get; set; }
         public List<Book> Book { get; set; }
@@ -19,6 +19,9 @@ namespace LibraryBook.Models
         {
             Book = new List<Book>();
         }
-
+        public string Full
+        {
+            get { return Surname + " " + Name + " " + MiddleName; }
+        }
     }
 }

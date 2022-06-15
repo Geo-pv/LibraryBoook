@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220605105409_AllModel.cs" />
+    <Compile Remove="Migrations\20220605105409_AllModel.Designer.cs" />
+    <Compile Remove="Migrations\20220605105749_CreateBase.cs" />
+    <Compile Remove="Migrations\20220605105749_CreateBase.Designer.cs" />
+    <Compile Remove="Migrations\20220615122423_bookedit.cs" />
+    <Compile Remove="Migrations\20220615122423_bookedit.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Home\Top.cshtml" />
   </ItemGroup>
 
@@ -18,6 +28,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
