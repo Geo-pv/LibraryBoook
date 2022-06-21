@@ -26,7 +26,12 @@
                 <input asp-for="Pages" class="form-control" />
                 <span asp-validation-for="Pages" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group4" link rel="stylesheet" href="~/css/Edit.css">
+                @if (Model.Image != null)
+                {
+                     <img src="@Model.Image" />
+                     @Html.HiddenFor(model=>model.Image)
+                }
                 <label asp-for="Image" class="control-label"></label>
                 <input name="file" id="file" type="file" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
@@ -36,10 +41,13 @@
                 @Html.DropDownListFor(model=>model.IdAuthor,(IEnumerable<SelectListItem>)ViewBag.IdAuthor,String.Empty, new{htmlAttributes = new{ @class="form-control"}})
                 <span asp-validation-for="IdAuthor" class="text-danger"></span>
             </div>
-            <div class="form-group3">
-                <label for="MoreGenre" class="control-label"></label>
-                @Html.ListBox("MoreGenre",(IEnumerable<SelectListItem>)ViewBag.MoreGenre,new{htmlAttributes = new{ @class="form-control3"}})
-                <span for="MoreGenre" class="text-danger"></span>
+            <div class="form-group">
+                <label for="Genre" class="control-label"></label>
+                  @Html.ListBox("Genre", (IEnumerable<SelectListItem>)@ViewBag.MoreGenre, new { htmlAttributes = new { @class = "form-control"} })
+                <script>
+                    document.getElementById("Genre").classList = "form-control";
+                    document.getElementById("Genre").selected = @ViewBag.MoreGenre;
+                </script>
             </div>
             <div class="form-group">
                 <link rel="stylesheet" href="~/css/Edit.css" asp-append-version="true" />

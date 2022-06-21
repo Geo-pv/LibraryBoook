@@ -23,9 +23,8 @@ namespace LibraryBook.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-              return db.Books != null ? 
-                          View(await db.Books.ToListAsync()) :
-                          Problem("Entity set 'ApplicationContext.Books'  is null.");
+            var books = await db.Books.Include(s => s.Author).ToListAsync();
+            return View(books);
         }
 
         // GET: Books/Details/5
@@ -126,7 +125,7 @@ namespace LibraryBook.Controllers
                             await file.CopyToAsync(filestream);
                         }
                         book.Image = path;
-                        db.Add(book);
+                        db.Update(book);
                         await db.SaveChangesAsync();
                         foreach (var item in MoreGenre)
                         {
