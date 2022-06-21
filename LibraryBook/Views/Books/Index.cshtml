@@ -4,16 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Книги</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateCreated)
@@ -34,6 +35,9 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
+               <img scr="@item.Image"/>
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
             <td>
@@ -43,11 +47,18 @@
                 @Html.DisplayFor(modelItem => item.IdAuthor)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <link rel="stylesheet" href="~/css/Delete.css"/>
+                <link rel="stylesheet" href="~/css/Edit.css"/>
+                <link rel="stylesheet" href="~/css/Details.css"/>
+                <a class="knopka1" asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> 
+                <a class="knopka2" asp-action="Details" asp-route-id="@item.Id">Детали</a> 
+                <a class="knopka3" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<p>
+    <link rel="stylesheet" href="~/css/Style_Create.css"/>
+    <a class="knopka" asp-action="Create">Добавить новую книгу</a>
+            </p>

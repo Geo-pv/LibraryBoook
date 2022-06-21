@@ -1,5 +1,6 @@
 ﻿using LibraryBook.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace LibraryBook.Controllers
@@ -22,6 +23,7 @@ namespace LibraryBook.Controllers
             //             View( _context.Books.ToList()) :
             //             Problem("Entity set 'ApplicationContext.Books'  is null.");
         }
+        [HttpPost]
 
         public IActionResult Privacy()
         {

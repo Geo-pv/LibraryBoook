@@ -4,10 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Book</h4>
-<hr />
+<h1>Добавить книгу</h1>
+<link rel="stylesheet" href="~/css/Style_Create.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/dobAuthor.css" asp-append-version="true" />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data" method="post">
@@ -32,25 +31,27 @@
                 <input name="file" id="file" type="file" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group2">
                 <label asp-for="IdAuthor" class="control-label"></label>
                 @Html.DropDownListFor(model=>model.IdAuthor,(IEnumerable<SelectListItem>)ViewBag.IdAuthor,String.Empty, new{htmlAttributes = new{ @class="form-control"}})
                 <span asp-validation-for="IdAuthor" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group3">
                 <label for="MoreGenre" class="control-label"></label>
-                @Html.ListBox("MoreGenre",(IEnumerable<SelectListItem>)ViewBag.MoreGenre, new{htmlAttributes = new{ @class="form-control"}})
+                @Html.ListBox("MoreGenre",(IEnumerable<SelectListItem>)ViewBag.MoreGenre,new{htmlAttributes = new{ @class="form-control3"}})
                 <span for="MoreGenre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <link rel="stylesheet" href="~/css/Edit.css" asp-append-version="true" />
+                <input type="submit" value="Добавить" class="knopka1" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="rastoyanie">
+    <link rel="stylesheet" href="~/css/dobAuthor.css" asp-append-version="true" />
+    <a asp-action="Index"  class="knopka11" >Назад</a>
 </div>
 
 @section Scripts {

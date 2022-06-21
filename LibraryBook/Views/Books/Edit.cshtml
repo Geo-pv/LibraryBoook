@@ -4,10 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Book</h4>
-<hr />
+<h1>Редактировать книгу</h1>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -34,14 +31,16 @@
                 <span asp-validation-for="IdAuthor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <link rel="stylesheet" href="~/css/dobAuthor.css"/>
+                <input type="submit" value="Сохранить" class="knopka11" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="rastoyanie">
+    <link rel="stylesheet" href="~/css/Edit.css" asp-append-version="true" />
+    <a asp-action="Index"  class="knopka1" >Назад</a>
 </div>
 
 @section Scripts {

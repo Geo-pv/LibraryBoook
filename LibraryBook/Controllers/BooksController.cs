@@ -63,7 +63,7 @@ namespace LibraryBook.Controllers
         { 
             if (ModelState.IsValid)
             {
-                string path = "/FotoBook/" + Path.GetFileName(file.FileName);
+                string path = "/Foto/" + Path.GetFileName(file.FileName);
                 using (var filestream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
                     await file.CopyToAsync(filestream);
@@ -92,10 +92,13 @@ namespace LibraryBook.Controllers
             }
 
             var book = await db.Books.FindAsync(id);
+            ViewBag.IdAuthor = new SelectList(db.Authors, "Id", "Full", db.Authors.Find(book.IdAuthor));
+            ViewBag.MoreGenre = new SelectList(db.Genres, "Id", "Name", db.GenBooks.Where(s => s.idBook == id).Select(s=>s.idGenre));
             if (book == null)
             {
                 return NotFound();
             }
+
             return View(book);
         }
 
@@ -104,7 +107,7 @@ namespace LibraryBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,DateCreated,Pages,IdAuthor")] Book book)
+        public async Task<IActionResult> Edit(int id,[Bind("Id,Title,DateCreated,Pages,IdAuthor")] Book book, List<int> MoreGenre, IFormFile file)
         {
             if (id != book.Id)
             {
@@ -115,8 +118,25 @@ namespace LibraryBook.Controllers
             {
                 try
                 {
+                    if(file != null)
+                    {
+                        string path = "/Foto/" + Path.GetFileName(file.FileName);
+                        using (var filestream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(filestream);
+                        }
+                        book.Image = path;
+                        db.Add(book);
+                        await db.SaveChangesAsync();
+                        foreach (var item in MoreGenre)
+                        {
+                            db.GenBooks.Add(new GenBook { idBook = book.Id, idGenre = item });
+                        }
+
+                    }
                     db.Update(book);
                     await db.SaveChangesAsync();
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -131,6 +151,8 @@ namespace LibraryBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.IdAuthor = new SelectList(db.Authors, "Id", "Full");
+            ViewBag.MoreGenre = new MultiSelectList(db.Genres, "Id", "Name", db.GenBooks.Where(s => s.idBook == id).Select(s => s.idGenre));
             return View(book);
         }
 
