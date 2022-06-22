@@ -14,7 +14,15 @@
     <Compile Remove="Migrations\20220605105749_CreateBase.Designer.cs" />
     <Compile Remove="Migrations\20220615122423_bookedit.cs" />
     <Compile Remove="Migrations\20220615122423_bookedit.Designer.cs" />
+    <Compile Remove="Migrations\20220615123433_create.cs" />
+    <Compile Remove="Migrations\20220615123433_create.Designer.cs" />
+    <Compile Remove="Migrations\20220616115737_file.cs" />
+    <Compile Remove="Migrations\20220616115737_file.Designer.cs" />
+    <Compile Remove="Migrations\20220622115434_NameDb.cs" />
+    <Compile Remove="Migrations\20220622115434_NameDb.Designer.cs" />
     <Compile Remove="Migrations\ApplicationContextModelSnapshot.cs" />
+    <Compile Remove="Models\BookAut.cs" />
+    <Compile Remove="Models\Rate.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +44,39 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\locales\ar.js" />
+    <None Include="wwwroot\js\locales\bn.js" />
+    <None Include="wwwroot\js\locales\de.js" />
+    <None Include="wwwroot\js\locales\es.js" />
+    <None Include="wwwroot\js\locales\fa.js" />
+    <None Include="wwwroot\js\locales\fr.js" />
+    <None Include="wwwroot\js\locales\gr.js" />
+    <None Include="wwwroot\js\locales\id.js" />
+    <None Include="wwwroot\js\locales\it.js" />
+    <None Include="wwwroot\js\locales\kk.js" />
+    <None Include="wwwroot\js\locales\ko.js" />
+    <None Include="wwwroot\js\locales\LANG.js" />
+    <None Include="wwwroot\js\locales\nl.js" />
+    <None Include="wwwroot\js\locales\pl.js" />
+    <None Include="wwwroot\js\locales\pt-BR.js" />
+    <None Include="wwwroot\js\locales\ro.js" />
+    <None Include="wwwroot\js\locales\ru.js" />
+    <None Include="wwwroot\js\locales\tr.js" />
+    <None Include="wwwroot\js\locales\ua.js" />
+    <None Include="wwwroot\js\locales\zh.js" />
+    <None Include="wwwroot\themes\krajee-fas\theme.js" />
+    <None Include="wwwroot\themes\krajee-fas\theme.min.js" />
+    <None Include="wwwroot\themes\krajee-fa\theme.js" />
+    <None Include="wwwroot\themes\krajee-fa\theme.min.js" />
+    <None Include="wwwroot\themes\krajee-gly\theme.js" />
+    <None Include="wwwroot\themes\krajee-gly\theme.min.js" />
+    <None Include="wwwroot\themes\krajee-svg\theme.js" />
+    <None Include="wwwroot\themes\krajee-svg\theme.min.js" />
+    <None Include="wwwroot\themes\krajee-uni\theme.js" />
+    <None Include="wwwroot\themes\krajee-uni\theme.min.js" />
   </ItemGroup>
 
 </Project>

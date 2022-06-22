@@ -67,7 +67,7 @@ namespace LibraryBook.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    idRole = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -77,7 +77,7 @@ namespace LibraryBook.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.idRole);
+                    table.PrimaryKey("PK_Users", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,7 +91,7 @@ namespace LibraryBook.Migrations
                     Pages = table.Column<long>(type: "bigint", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TextFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdAuthor = table.Column<int>(type: "int", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -108,14 +108,14 @@ namespace LibraryBook.Migrations
                 name: "BookAuts",
                 columns: table => new
                 {
-                    idAuthor = table.Column<int>(type: "int", nullable: false),
-                    idBook = table.Column<int>(type: "int", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
                     AuthorsId = table.Column<int>(type: "int", nullable: true),
                     BooksId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookAuts", x => new { x.idAuthor, x.idBook });
+                    table.PrimaryKey("PK_BookAuts", x => new { x.AuthorId, x.BookId });
                     table.ForeignKey(
                         name: "FK_BookAuts_Authors_AuthorsId",
                         column: x => x.AuthorsId,
@@ -132,14 +132,14 @@ namespace LibraryBook.Migrations
                 name: "GenBooks",
                 columns: table => new
                 {
-                    idGenre = table.Column<int>(type: "int", nullable: false),
-                    idBook = table.Column<int>(type: "int", nullable: false),
+                    GenreId = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
                     GenresId = table.Column<int>(type: "int", nullable: true),
                     BooksId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GenBooks", x => new { x.idGenre, x.idBook });
+                    table.PrimaryKey("PK_GenBooks", x => new { x.GenreId, x.BookId });
                     table.ForeignKey(
                         name: "FK_GenBooks_Books_BooksId",
                         column: x => x.BooksId,
@@ -156,16 +156,16 @@ namespace LibraryBook.Migrations
                 name: "RateBooks",
                 columns: table => new
                 {
-                    idRate = table.Column<int>(type: "int", nullable: false),
-                    idBook = table.Column<int>(type: "int", nullable: false),
-                    idUser = table.Column<int>(type: "int", nullable: false),
+                    RateId = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     RatesId = table.Column<int>(type: "int", nullable: true),
                     BooksId = table.Column<int>(type: "int", nullable: true),
-                    UsersidRole = table.Column<int>(type: "int", nullable: true)
+                    UsersRoleId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RateBooks", x => new { x.idRate, x.idBook, x.idUser });
+                    table.PrimaryKey("PK_RateBooks", x => new { x.RateId, x.BookId, x.UserId });
                     table.ForeignKey(
                         name: "FK_RateBooks_Books_BooksId",
                         column: x => x.BooksId,
@@ -177,10 +177,10 @@ namespace LibraryBook.Migrations
                         principalTable: "Rates",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_RateBooks_Users_UsersidRole",
-                        column: x => x.UsersidRole,
+                        name: "FK_RateBooks_Users_UsersRoleId",
+                        column: x => x.UsersRoleId,
                         principalTable: "Users",
-                        principalColumn: "idRole");
+                        principalColumn: "RoleId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -219,9 +219,9 @@ namespace LibraryBook.Migrations
                 column: "RatesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RateBooks_UsersidRole",
+                name: "IX_RateBooks_UsersRoleId",
                 table: "RateBooks",
-                column: "UsersidRole");
+                column: "UsersRoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

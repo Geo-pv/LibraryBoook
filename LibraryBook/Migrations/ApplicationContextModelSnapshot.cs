@@ -60,10 +60,6 @@ namespace LibraryBook.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("IdAuthor")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -84,48 +80,17 @@ namespace LibraryBook.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("LibraryBook.Models.BookAut", b =>
-                {
-                    b.Property<int>("idAuthor")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idBook")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AuthorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BooksId")
-                        .HasColumnType("int");
-
-                    b.HasKey("idAuthor", "idBook");
-
-                    b.HasIndex("AuthorsId");
-
-                    b.HasIndex("BooksId");
-
-                    b.ToTable("BookAuts");
-                });
-
             modelBuilder.Entity("LibraryBook.Models.GenBook", b =>
                 {
-                    b.Property<int>("idGenre")
+                    b.Property<int>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<int>("idBook")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BooksId")
-                        .HasColumnType("int");
+                    b.HasKey("GenreId", "BookId");
 
-                    b.Property<int?>("GenresId")
-                        .HasColumnType("int");
-
-                    b.HasKey("idGenre", "idBook");
-
-                    b.HasIndex("BooksId");
-
-                    b.HasIndex("GenresId");
+                    b.HasIndex("BookId");
 
                     b.ToTable("GenBooks");
                 });
@@ -147,50 +112,17 @@ namespace LibraryBook.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("LibraryBook.Models.Rate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rates");
-                });
-
             modelBuilder.Entity("LibraryBook.Models.RateBook", b =>
                 {
-                    b.Property<int>("idRate")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<int>("idBook")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("idUser")
-                        .HasColumnType("int");
+                    b.HasKey("BookId", "UserId");
 
-                    b.Property<int?>("BooksId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RatesId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UsersidRole")
-                        .HasColumnType("int");
-
-                    b.HasKey("idRate", "idBook", "idUser");
-
-                    b.HasIndex("BooksId");
-
-                    b.HasIndex("RatesId");
-
-                    b.HasIndex("UsersidRole");
+                    b.HasIndex("UserId");
 
                     b.ToTable("RateBooks");
                 });
@@ -214,14 +146,11 @@ namespace LibraryBook.Migrations
 
             modelBuilder.Entity("LibraryBook.Models.User", b =>
                 {
-                    b.Property<int>("idRole")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idRole"), 1L, 1);
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Login")
                         .HasColumnType("int");
@@ -237,7 +166,10 @@ namespace LibraryBook.Migrations
                     b.Property<int>("Password")
                         .HasColumnType("int");
 
-                    b.HasKey("idRole");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
@@ -251,30 +183,19 @@ namespace LibraryBook.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("LibraryBook.Models.BookAut", b =>
-                {
-                    b.HasOne("LibraryBook.Models.Author", "Authors")
-                        .WithMany()
-                        .HasForeignKey("AuthorsId");
-
-                    b.HasOne("LibraryBook.Models.Book", "Books")
-                        .WithMany()
-                        .HasForeignKey("BooksId");
-
-                    b.Navigation("Authors");
-
-                    b.Navigation("Books");
-                });
-
             modelBuilder.Entity("LibraryBook.Models.GenBook", b =>
                 {
                     b.HasOne("LibraryBook.Models.Book", "Books")
                         .WithMany()
-                        .HasForeignKey("BooksId");
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LibraryBook.Models.Genre", "Genres")
                         .WithMany()
-                        .HasForeignKey("GenresId");
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Books");
 
@@ -285,19 +206,17 @@ namespace LibraryBook.Migrations
                 {
                     b.HasOne("LibraryBook.Models.Book", "Books")
                         .WithMany()
-                        .HasForeignKey("BooksId");
-
-                    b.HasOne("LibraryBook.Models.Rate", "Rates")
-                        .WithMany()
-                        .HasForeignKey("RatesId");
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LibraryBook.Models.User", "Users")
                         .WithMany()
-                        .HasForeignKey("UsersidRole");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Books");
-
-                    b.Navigation("Rates");
 
                     b.Navigation("Users");
                 });

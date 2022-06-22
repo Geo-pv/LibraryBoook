@@ -22,10 +22,8 @@ namespace LibraryBook.Models
 
         public string? TextFile { get; set; }
 
-
-        [Required]
         [Display(Name = "Автор")]
-        public int? IdAuthor { get; set; }
+        public int? AuthorId { get; set; }
 
         public Author? Author { get; set; }
     }

@@ -2,8 +2,8 @@
 {
     public class GenBook
     {
-        public int idGenre { get; set; }
-        public int idBook { get; set; }
+        public int GenreId { get; set; }
+        public int BookId { get; set; }
         public Genre? Genres { get; set; }
         public Book? Books { get; set; }
     }

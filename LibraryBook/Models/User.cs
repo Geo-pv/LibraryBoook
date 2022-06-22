@@ -7,7 +7,7 @@ namespace LibraryBook.Models
         [Required]
         [Display(Name = "Имя")]
         public string? Name { get; set; }
-        public int idRole { get; set; }
+        public int RoleId { get; set; }
         [Required]
         [Display(Name = "Логин")]
         public int Login { get; set; }

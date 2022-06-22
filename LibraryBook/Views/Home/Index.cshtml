@@ -1,32 +1,62 @@
-﻿@{
+﻿@model IEnumerable<LibraryBook.Models.Book>
+@{
     ViewData["Title"] = "Home Page";
 }
 <h1>@ViewData["Title"]</h1>
-<link rel="stylesheet" href="~/css/BookStyle.css"/>
-     <div class="containers">
-         <div class="row">
-             <div class="col-md-6">
-                 <img class="book__img" src="~/FotoBook/Книга 1.jpg" alt="альтернативный текст">
-             </div>
-             <div class="col-md-6" offset-1">
-                 <img class="book__img" src="~/FotoBook/Книга 2.jpg" alt="альтернативный текст">
-             </div>
-             <div class="col-md-6" offset-2">
-                 <img class="book__img" src="~/FotoBook/Книга 3.jpg" alt="альтернативный текст">
-             </div>
-             <div class="col-md-6" offset-3">
-                 <img class="book__img" src="~/FotoBook/Книга 4.jpg" alt="альтернативный текст">
-             </div>
-             <div class="col-md-6" offset-4">
-                 <img class="book__img" src="~/FotoBook/Книга 5.jpg" alt="альтернативный текст">
-             </div>
-         </div>
+<script src="js/star-rating.js"></script>
+<link href="css/star-rating.css" rel="stylesheet" />
+    <script src="themes/krajee-svg/theme.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="themes/krajee-svg/theme.css" media="all" type="text/css"/>
+<link rel="stylesheet" href="~/css/BookStyle.css" />
 
-     </div>
-    
+ <script>  
+        $(document).ready(function () {  
+            $("#input-21b").on("rating.change", function (event, value, caption) {  
+                  
+                var ratingValue = $('#<%=rate.ClientID%>').val();  
+                ratingValue = value;  
+                alert(ratingValue);  
+            });  
+        });  
+    </script> 
 
-
-
-
-
-
+<div class="containers">
+    <div class="row justify-content-start">
+        @foreach (var item in Model)
+        {
+            <div class="card" style="max-width:200px; margin:5px;">
+                <div>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </div>
+                <div>
+                    <img src="@item.Image" width="150px" height="200px" />
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Pages)
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Author.Full)
+                </div>
+                <div>
+                    <a class="knopka2" asp-action="Details" asp-route-id="@item.Id">Детали</a>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form method="post" asp-action="Reating" runat="server" asp-controller="Home">
+                                <input id="input-21b" type="number" class="rating"
+                                   min=0 max=5 step=0.5
+                                   data-glyphicon="false" data-star-captions="{}"
+                                   data-default-caption="{rating} Stars" data-size="sm">
+                                @*@Html.Hidden("userName",User.Identity)*@
+                                @Html.Hidden("BookId", item.Id)
+                                 <asp:HiddenField ID="rate" name="rate" runat="server" />  
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -7,7 +7,7 @@
 <h1>Книги</h1>
 
 
-<table class="table">
+<table class="table align-middle">
     <thead>
         <tr>
             <th>
@@ -23,14 +23,14 @@
                 @Html.DisplayNameFor(model => model.Pages)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdAuthor)
+                @Html.DisplayNameFor(model => model.AuthorId)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="my-tr">
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>

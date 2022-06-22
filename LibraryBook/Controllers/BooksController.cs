@@ -21,9 +21,9 @@ namespace LibraryBook.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index()
+        public  IActionResult Index()
         {
-            var books = await db.Books.Include(s => s.Author).ToListAsync();
+            var books = db.Books.Include(s => s.Author).ToList();
             return View(books);
         }
 
@@ -48,7 +48,7 @@ namespace LibraryBook.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewBag.IdAuthor = new SelectList(db.Authors, "Id", "Full");
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "Full");
             ViewBag.MoreGenre = new SelectList(db.Genres, "Id", "Name");
             return View();
         }
@@ -58,7 +58,7 @@ namespace LibraryBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,DateCreated,Pages,IdAuthor")] Book book, List<int>MoreGenre,IFormFile file)
+        public async Task<IActionResult> Create([Bind("Id,Title,DateCreated,Pages,AuthorId")] Book book, List<int>MoreGenre,IFormFile file)
         { 
             if (ModelState.IsValid)
             {
@@ -72,12 +72,12 @@ namespace LibraryBook.Controllers
                 await db.SaveChangesAsync();
                 foreach (var item in MoreGenre)
                 {
-                    db.GenBooks.Add(new GenBook { idBook = book.Id, idGenre = item });
+                    db.GenBooks.Add(new GenBook { BookId = book.Id, GenreId = item });
                 }
                 await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.IdAuthor = new SelectList(db.Authors, "Id", "Full");
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "Full");
             ViewBag.MoreGenre = new SelectList(db.Genres, "Id", "Name");
             return View(book);
         }
@@ -91,8 +91,8 @@ namespace LibraryBook.Controllers
             }
 
             var book = await db.Books.FindAsync(id);
-            ViewBag.IdAuthor = new SelectList(db.Authors, "Id", "Full", db.Authors.Find(book.IdAuthor));
-            ViewBag.MoreGenre = new SelectList(db.Genres, "Id", "Name", db.GenBooks.Where(s => s.idBook == id).Select(s=>s.idGenre));
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "Full", db.Authors.Find(book.AuthorId));
+            ViewBag.MoreGenre = new SelectList(db.Genres, "Id", "Name", db.GenBooks.Where(s => s.BookId == id).Select(s=>s.GenreId));
             if (book == null)
             {
                 return NotFound();
@@ -106,7 +106,7 @@ namespace LibraryBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,[Bind("Id,Title,DateCreated,Pages,IdAuthor")] Book book, List<int> MoreGenre, IFormFile file)
+        public async Task<IActionResult> Edit(int id,[Bind("Id,Title,DateCreated,Pages,AuthorId")] Book book, List<int> MoreGenre, IFormFile file)
         {
             if (id != book.Id)
             {
@@ -129,7 +129,7 @@ namespace LibraryBook.Controllers
                         await db.SaveChangesAsync();
                         foreach (var item in MoreGenre)
                         {
-                            db.GenBooks.Add(new GenBook { idBook = book.Id, idGenre = item });
+                            db.GenBooks.Add(new GenBook { BookId = book.Id, GenreId = item });
                         }
 
                     }
@@ -150,8 +150,8 @@ namespace LibraryBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.IdAuthor = new SelectList(db.Authors, "Id", "Full");
-            ViewBag.MoreGenre = new MultiSelectList(db.Genres, "Id", "Name", db.GenBooks.Where(s => s.idBook == id).Select(s => s.idGenre));
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "Full");
+            ViewBag.MoreGenre = new MultiSelectList(db.Genres, "Id", "Name", db.GenBooks.Where(s => s.BookId == id).Select(s => s.GenreId));
             return View(book);
         }
 

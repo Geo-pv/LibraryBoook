@@ -8,23 +8,32 @@ namespace LibraryBook.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationContext _context;
+        private readonly ApplicationContext db;
 
         public HomeController(ILogger<HomeController> logger, ApplicationContext context)
         {
             _logger = logger;
-            _context = context;
+            db = context;
         }
 
         public IActionResult Index()
         {
-            return View();
-            //return _context.Books != null ?
-            //             View( _context.Books.ToList()) :
-            //             Problem("Entity set 'ApplicationContext.Books'  is null.");
+            
+            return View(db.Books.Include(s => s.Author).ToList());
+        }
+        public void Reating(/*string userName,*/float rate, int BookId)
+        {
+            
         }
         [HttpPost]
+        public IActionResult Search(string search)
+        {
+            ViewBag.Search = db.Books.Where(s => s.Title.Contains(search)).ToList();
+            {
 
+            }
+            return View(ViewBag.Search);
+        }
         public IActionResult Privacy()
         {
             return View();
