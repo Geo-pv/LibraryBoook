@@ -44,14 +44,13 @@
                     <a class="knopka2" asp-action="Details" asp-route-id="@item.Id">Детали</a>
                     <div class="row">
                         <div class="col-lg-12">
-                            <form method="post" asp-action="Reating" runat="server" asp-controller="Home">
+                            <form method="post" asp-action="Reating" asp-controller="Home">
                                 <input id="input-21b" type="number" class="rating"
-                                   min=0 max=5 step=0.5
-                                   data-glyphicon="false" data-star-captions="{}"
-                                   data-default-caption="{rating} Stars" data-size="sm">
+                                   min=0 max=5 step=0.5 name="rate" data-size="sm">
                                 @*@Html.Hidden("userName",User.Identity)*@
                                 @Html.Hidden("BookId", item.Id)
-                                 <asp:HiddenField ID="rate" name="rate" runat="server" />  
+                                 <asp:HiddenField ID="rate"  runat="server" />  
+                                 <button name="send" type="submit">отправить</button>
                             </form>
                         </div>
                     </div>

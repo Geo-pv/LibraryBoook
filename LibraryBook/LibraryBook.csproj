@@ -47,6 +47,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Account\Account.cshtml" />
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Account\Logout.cshtml" />
+    <None Include="Views\Account\Register.cshtml" />
     <None Include="wwwroot\js\locales\ar.js" />
     <None Include="wwwroot\js\locales\bn.js" />
     <None Include="wwwroot\js\locales\de.js" />

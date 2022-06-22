@@ -21,9 +21,9 @@ namespace LibraryBook.Controllers
             
             return View(db.Books.Include(s => s.Author).ToList());
         }
-        public void Reating(/*string userName,*/float rate, int BookId)
+        public IActionResult Reating(/*string userName,*/float rate, int BookId)
         {
-            
+            return RedirectToAction("Index");
         }
         [HttpPost]
         public IActionResult Search(string search)

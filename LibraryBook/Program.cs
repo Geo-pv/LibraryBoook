@@ -13,12 +13,13 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(connectionString));
 
 
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//    .AddCookie(options => //CookieAuthenticationOptions
-//    {
-//        options.LoginPath = new PathString("/Account/Login");
-//        options.AccessDeniedPath = new PathString("/Account/Login");
-//    });
+// установка конфигурации подключения
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => //CookieAuthenticationOptions
+    {
+        options.LoginPath = new PathString("/Account/Login");
+        options.AccessDeniedPath = new PathString("/Account/Login");
+    });
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

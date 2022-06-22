@@ -36,6 +36,30 @@
                         </li>
                         
                     </ul>
+                    <ul class="navbar-nav flex-grow-2">
+                        @if (User.Identity.Name != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Account">@User.Identity.Name</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Account" asp-action="Logout">
+                                    <input class="nav-link btn text-dark" type="submit" value="Выход" />
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link btn text-dark" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn text-dark" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+                            </li>
+                        }
+
+                    </ul>
                 </div>
             </div>
         </nav>
