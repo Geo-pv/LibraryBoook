@@ -119,7 +119,8 @@ namespace LibraryBook.Migrations
                 columns: table => new
                 {
                     BookId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Roles = table.Column<float>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
