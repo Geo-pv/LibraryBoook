@@ -20,6 +20,10 @@
     <Compile Remove="Migrations\20220616115737_file.Designer.cs" />
     <Compile Remove="Migrations\20220622115434_NameDb.cs" />
     <Compile Remove="Migrations\20220622115434_NameDb.Designer.cs" />
+    <Compile Remove="Migrations\20220622125215_CreateDbFinal.cs" />
+    <Compile Remove="Migrations\20220622125215_CreateDbFinal.Designer.cs" />
+    <Compile Remove="Migrations\20220622144716_addacc.cs" />
+    <Compile Remove="Migrations\20220622144716_addacc.Designer.cs" />
     <Compile Remove="Migrations\ApplicationContextModelSnapshot.cs" />
     <Compile Remove="Models\BookAut.cs" />
     <Compile Remove="Models\Rate.cs" />

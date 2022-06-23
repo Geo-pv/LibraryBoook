@@ -19,6 +19,17 @@ namespace LibraryBook.Models
         {
             modelBuilder.Entity<GenBook>().HasKey(table => new { table.GenreId, table.BookId });
             modelBuilder.Entity<RateBook>().HasKey(table => new { table.BookId, table.UserId });
+            string adminRoleName = "admin";
+            string userRoleName = "user";
+
+            string adminEmail = "admin@mail.ru";
+            string adminPassword = "123456";
+
+            // добавляем роли
+            Role adminRole = new() { Id = 1, Name = adminRoleName };
+            Role userRole = new() { Id = 2, Name = userRoleName };
+            User adminUser = new() { Id = 1, Login = adminEmail, NicName = adminEmail, Password = adminPassword, RoleId = adminRole.Id };
+
             base.OnModelCreating(modelBuilder);
         }
     }
