@@ -8,12 +8,14 @@ namespace LibraryBook.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        IWebHostEnvironment _appEnvironment;
         private readonly ApplicationContext db;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationContext context, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             db = context;
+            _appEnvironment = appEnvironment;
         }
 
         public IActionResult Index()
@@ -47,14 +49,24 @@ namespace LibraryBook.Controllers
         [HttpPost]
         public IActionResult Search(string search)
         {
-            ViewBag.Search = db.Books.Where(s => s.Title.Contains(search)).ToList();
-            {
-
-            }
-            return View(ViewBag.Search);
+            return View(db.Books.Where(s => s.Title.Contains(search)).ToList());
         }
         public IActionResult Privacy()
         {
+            return View();
+        }
+
+        /// <summary>
+        /// Представление, для чтения текстового файла
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> ReadBook(int id)
+        {
+            var file = db.Books.Where(s=>s.Id == id).FirstOrDefault().TextFile;
+
+            //Ищем книгу в базе по id
+            ViewBag.path = _appEnvironment.WebRootPath + file;
             return View();
         }
 

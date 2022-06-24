@@ -35,8 +35,18 @@
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Genres" asp-action="Index">Жанры</a>
                         </li>
-                        
+                        <li>
+                            <ul class="navbar-nav flex-grow-1">
+                        <li>
+                            <form class="d-flex" asp-action="Search" asp-controller="Home" method="post">
+                                <input class="form-control me-2" type="search" name="search" placeholder="Введите название книги" aria-label="Введите название книги">
+                                <button class="btn col-4" type="submit">Поиск</button>
+                            </form>
+                        </li>
                     </ul>
+                        </li>
+                    </ul>
+                    
                     <ul class="navbar-nav flex-grow-2">
                         @if (User.Identity.Name != null)
                         {

@@ -1,0 +1,14 @@
+﻿@{
+
+    // асинхронное чтение
+    using (var reader = new StreamReader(ViewBag.path))
+    {
+        string? line;
+        while ((line = await reader.ReadLineAsync()) != null)
+        {
+            <p>
+                @line
+            </p>
+        }
+    }
+}

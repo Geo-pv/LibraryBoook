@@ -42,6 +42,17 @@
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="TextFile" class="control-label"></label>
+                <br />
+                @if (Model.TextFile != null)
+                {
+                     <img src="@Model.TextFile" class="form-group4" />
+                     @Html.HiddenFor(model=>model.TextFile)
+                }
+                 <input name="txtfile" id="txtfile" type="file" class="form-control" />
+                <span asp-validation-for="TextFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label for="Genre" class="control-label"></label>
                   @Html.ListBox("Genre", (IEnumerable<SelectListItem>)@ViewBag.MoreGenre, new { htmlAttributes = new { @class = "form-control"} })
                 <script>

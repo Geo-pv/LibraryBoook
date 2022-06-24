@@ -58,7 +58,7 @@ namespace LibraryBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,DateCreated,Pages,AuthorId")] Book book, List<int>MoreGenre,IFormFile file)
+        public async Task<IActionResult> Create([Bind("Id,Title,DateCreated,Pages,AuthorId")] Book book, List<int>MoreGenre,IFormFile file, IFormFile txtfile)
         { 
             if (ModelState.IsValid)
             {
@@ -67,6 +67,12 @@ namespace LibraryBook.Controllers
                 {
                     await file.CopyToAsync(filestream);
                 }
+                string pathtxt = "/textfile/" + Path.GetFileName(txtfile.FileName);
+                using(var filestreamtxt = new FileStream(_appEnvironment.WebRootPath + pathtxt, FileMode.Create))
+                {
+                    await txtfile.CopyToAsync(filestreamtxt);
+                }
+                book.TextFile = pathtxt;
                 book.Image = path;
                 db.Add(book);
                 await db.SaveChangesAsync();
@@ -81,6 +87,7 @@ namespace LibraryBook.Controllers
             ViewBag.MoreGenre = new SelectList(db.Genres, "Id", "Name");
             return View(book);
         }
+       
 
         // GET: Books/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -106,7 +113,7 @@ namespace LibraryBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,[Bind("Id,Title,DateCreated,Pages,AuthorId")] Book book, List<int> MoreGenre, IFormFile file)
+        public async Task<IActionResult> Edit(int id,[Bind("Id,Title,DateCreated,Pages,AuthorId")] Book book, List<int> MoreGenre, IFormFile file, IFormFile txtfile)
         {
             if (id != book.Id)
             {
@@ -123,17 +130,25 @@ namespace LibraryBook.Controllers
                         using (var filestream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                         {
                             await file.CopyToAsync(filestream);
-                        }
+                        }                        
                         book.Image = path;
-                        db.Update(book);
-                        await db.SaveChangesAsync();
-                        foreach (var item in MoreGenre)
+                    }
+                    if(txtfile != null)
+                    {
+                        string pathtxt = "/textfile/" + Path.GetFileName(txtfile.FileName);
+                        using (var filestreamtxt = new FileStream(_appEnvironment.WebRootPath + pathtxt, FileMode.Create))
                         {
-                            db.GenBooks.Add(new GenBook { BookId = book.Id, GenreId = item });
+                            await txtfile.CopyToAsync(filestreamtxt);
                         }
-
+                        book.TextFile = pathtxt;
                     }
                     db.Update(book);
+                    await db.SaveChangesAsync();
+                    foreach (var item in MoreGenre)
+                    {
+                        db.GenBooks.Add(new GenBook { BookId = book.Id, GenreId = item });
+                    }
+                   // db.Update(book);
                     await db.SaveChangesAsync();
                     
                 }

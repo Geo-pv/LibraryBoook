@@ -29,7 +29,7 @@ namespace LibraryBook.Models
             Role adminRole = new() { Id = 1, Name = adminRoleName };
             Role userRole = new() { Id = 2, Name = userRoleName };
             User adminUser = new() { Id = 1, Login = adminEmail, NicName = adminEmail, Password = adminPassword, RoleId = adminRole.Id };
-
+            
             base.OnModelCreating(modelBuilder);
         }
     }

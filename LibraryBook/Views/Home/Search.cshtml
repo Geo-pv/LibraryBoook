@@ -1,8 +1,65 @@
 ﻿@model IEnumerable<LibraryBook.Models.Book>
-@{
-    ViewData["Title"] = "Home Page";
+
+
+@if (User.IsInRole("admin"))
+{
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TextFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TextFile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-controller="Books" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-controller="Books" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-controller="Books" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
 }
-<h1>@ViewData["Title"]</h1>
+    </tbody>
+</table>
+}else{
+
   <link rel="stylesheet" href="/css/star-rating.css" media="all" type="text/css"/>
     <link rel="stylesheet" href="/themes/krajee-svg/theme.css" media="all" type="text/css"/>
     <script src="/js/star-rating.js" type="text/javascript"></script>
@@ -66,3 +123,5 @@
         }
     </div>
 </div>
+}
+
