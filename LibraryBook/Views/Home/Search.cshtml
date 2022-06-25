@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryBook.Models.Book>
+﻿@model IEnumerable<LibraryBook.ViewModels.OblogkaView>
 
 
 @if (User.IsInRole("admin"))
@@ -11,16 +11,10 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pages)
+                @Html.DisplayNameFor(model => model.Page)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TextFile)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Author)
@@ -35,19 +29,13 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pages)
+                @Html.DisplayFor(modelItem => item.Page)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Image)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TextFile)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author.Name)
+                @Html.DisplayFor(modelItem => item.Author)
             </td>
             <td>
                 <a asp-action="Edit" asp-controller="Books" asp-route-id="@item.Id">Edit</a> |
@@ -87,22 +75,25 @@
         {
             <div class="card" style="max-width:200px; margin:5px;">
                 <div>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    <b>Название:</b>@item.Title
                 </div>
                 <div>
                     <img src="@item.Image" width="150px" height="200px" />
                 </div>
                 <div>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
+                    <b>Страницы:</b> @item.Page
                 </div>
                 <div>
-                    @Html.DisplayFor(modelItem => item.Pages)
+                    <b>Автор:</b> @item.Author
                 </div>
                 <div>
-                    @Html.DisplayFor(modelItem => item.Author.Full)
+                    <b>Жанры:</b>
+                    @foreach (var gen in item.Genres)
+                    {
+                        <lable>@gen.Name &nbsp</lable>
+                    }
                 </div>
                 <div>
-                    <a class="knopka2" asp-action="Details" asp-route-id="@item.Id">Детали</a>
                     <a class="knopka2" asp-action="ReadBook" asp-route-id="@item.Id">Читать</a>
                     <div class="row">
                         <div class="col-lg-12">

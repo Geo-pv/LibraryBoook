@@ -104,7 +104,24 @@ namespace LibraryBook.Controllers
         [HttpPost]
         public IActionResult Search(string search)
         {
-            return View(db.Books.Where(s => s.Title.Contains(search)).ToList());
+            var listBooks = new List<OblogkaView>();
+            foreach (var item in db.Books.Include(s=>s.Author).Where(s => s.Title.Contains(search)).ToList())
+            {
+                var oblogka = new OblogkaView();
+                oblogka.Id = item.Id;
+                oblogka.Title = item.Title;
+                oblogka.Author = item.Author.Full;
+                List<Genre> genres = new();
+                foreach (var gen in db.GenBooks.Where(s => s.BookId == item.Id).Include(s => s.Genres).ToList())
+                {
+                    genres.Add(db.Genres.Find(gen.GenreId));
+                }
+                oblogka.Genres = genres;
+                oblogka.Image = item.Image;
+                oblogka.Page = item.Pages;
+                listBooks.Add(oblogka);
+            }
+            return View(listBooks);
         }
         public IActionResult Top()
         {

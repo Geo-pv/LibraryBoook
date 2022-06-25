@@ -25,18 +25,19 @@
     </script> 
    <div class="d-flex justify-content-end" >
        <form class="d-flex justify-content-end" asp-action="Index" method="get">
-           <select class="form-control p-2 bd-highlight" type="text" name="idAuthor" id="filter">
-               <option selected></option>
+           <select class="form-control p-2 col-2 bd-highlight" type="text" name="idAuthor" id="filter">
+               <option class="form-control " selected>Выберете автора</option>
                @foreach (var item in ViewBag.Authors)
                {
-                <option name="idAuthor" value="@item.Id">@item.Full</option>
+                <option class="form-control " name="idAuthor" value="@item.Id">@item.Full</option>
             }
         </select>
-        <select class="form-control p-2 bd-highlight" type="text" name="idGenre" id="filter">
-               <option selected></option>
+        <wbr />
+        <select class="form-control p-2 col-2 bd-highlight" type="text" name="idGenre" id="filter">
+               <option class="form-control "  selected>Выбере жанр</option>
                @foreach (var item in ViewBag.Genres)
                {
-                <option name="idGenre" value="@item.Id">@item.Name</option>
+                <option class="form-control "  name="idGenre" value="@item.Id">@item.Name</option>
             }
         </select>
            <button class="btn btn-outline-success  p-2 bd-highlight">Фильтр</button>
