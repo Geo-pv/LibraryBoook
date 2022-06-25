@@ -30,10 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Home\Top.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\dobAuthor.css" />
   </ItemGroup>
 

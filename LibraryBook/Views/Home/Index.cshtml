@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LibraryBook.Models.Book>
+﻿@model IEnumerable<LibraryBook.ViewModels.OblogkaView>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -23,29 +23,50 @@
             });  
         });  
     </script> 
-
+   <div class="d-flex justify-content-end" >
+       <form class="d-flex justify-content-end" asp-action="Index" method="get">
+           <select class="form-control p-2 bd-highlight" type="text" name="idAuthor" id="filter">
+               <option selected></option>
+               @foreach (var item in ViewBag.Authors)
+               {
+                <option name="idAuthor" value="@item.Id">@item.Full</option>
+            }
+        </select>
+        <select class="form-control p-2 bd-highlight" type="text" name="idGenre" id="filter">
+               <option selected></option>
+               @foreach (var item in ViewBag.Genres)
+               {
+                <option name="idGenre" value="@item.Id">@item.Name</option>
+            }
+        </select>
+           <button class="btn btn-outline-success  p-2 bd-highlight">Фильтр</button>
+       </form>
+   </div>
 <div class="containers">
     <div class="row justify-content-start">
         @foreach (var item in Model)
         {
             <div class="card" style="max-width:200px; margin:5px;">
                 <div>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    <b>Название:</b>@item.Title
                 </div>
                 <div>
                     <img src="@item.Image" width="150px" height="200px" />
                 </div>
                 <div>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
+                    <b>Страницы:</b> @item.Page
                 </div>
                 <div>
-                    @Html.DisplayFor(modelItem => item.Pages)
+                    <b>Автор:</b> @item.Author
                 </div>
                 <div>
-                    @Html.DisplayFor(modelItem => item.Author.Full)
+                    <b>Жанры:</b>
+                    @foreach (var gen in item.Genres)
+                    {
+                        <lable>@gen.Name &nbsp</lable>
+                    }
                 </div>
                 <div>
-                    <a class="knopka2" asp-action="Details" asp-route-id="@item.Id">Детали</a>
                     <a class="knopka2" asp-action="ReadBook" asp-route-id="@item.Id">Читать</a>
                     <div class="row">
                         <div class="col-lg-12">

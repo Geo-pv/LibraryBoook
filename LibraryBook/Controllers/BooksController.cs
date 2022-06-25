@@ -113,14 +113,14 @@ namespace LibraryBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,[Bind("Id,Title,DateCreated,Pages,AuthorId")] Book book, List<int> MoreGenre, IFormFile file, IFormFile txtfile)
+        public async Task<IActionResult> Edit(int id,[Bind("Id,Title,DateCreated,Pages,AuthorId,Image,TextFile")] Book book, List<int> MoreGenre, IFormFile file, IFormFile txtfile)
         {
             if (id != book.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if((ModelState.IsValid)|| (MoreGenre != null) || (file != null) || (txtfile != null))   
             {
                 try
                 {
