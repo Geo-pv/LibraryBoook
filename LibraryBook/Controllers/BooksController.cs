@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LibraryBook.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryBook.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class BooksController : Controller
     {
         private readonly ApplicationContext db;

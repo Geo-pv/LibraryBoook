@@ -44,7 +44,7 @@ namespace LibraryBook.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 else
-                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                    ModelState.AddModelError("", "Неправильно введен логин и(или) пароль");
             }
             return View(model);
         }
@@ -68,7 +68,7 @@ namespace LibraryBook.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                ModelState.AddModelError("", "Неправильно введен и(или) пароль");
             }
             return View(model);
         }
@@ -82,7 +82,7 @@ namespace LibraryBook.Controllers
         }
         private async Task Authenticate(User user)
         {
-            // создаем один claim
+            // создаем один claim утверждениям отдельного лица
             var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),

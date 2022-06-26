@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
+
 namespace LibraryBook.Controllers
 {
     public class HomeController : Controller
@@ -78,6 +79,7 @@ namespace LibraryBook.Controllers
             }
             return View(listBooks);
         }
+        
         public IActionResult Reating(string userName, float rate, int BookId)
         {
             var user = db.Users.Where(s => s.Login == userName)
