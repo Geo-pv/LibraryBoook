@@ -34,9 +34,10 @@ namespace LibraryBook.Controllers
                     // добавляем пользователя в бд
                     user = new User { Login = model.Email, NicName=model.Email, Password = model.Password };
                     Role userRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                    // проверка ролей
                     if (userRole != null)
                         user.Role = userRole;
-
+                    // добавление пользователя
                     db.Users.Add(user);
                     await db.SaveChangesAsync();
                     await Authenticate(user); // аутентификация
@@ -59,6 +60,7 @@ namespace LibraryBook.Controllers
         {
             if (ModelState.IsValid)
             {
+                // проверка пользователя
                 User user = await db.Users
                     .Include(u => u.Role)
                     .FirstOrDefaultAsync(u => u.Login == model.Email && u.Password == model.Password);

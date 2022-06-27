@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryBook.Controllers
 {
+    // права доступа
     [Authorize(Roles = "admin")]
     public class AuthorsController : Controller
     {
@@ -61,6 +62,7 @@ namespace LibraryBook.Controllers
         {
             if (ModelState.IsValid)
             {
+                // добавление данных автора
                 _context.Add(author);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

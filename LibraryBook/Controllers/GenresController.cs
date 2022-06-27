@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryBook.Controllers
 {
+    // права доступа
     [Authorize(Roles = "admin")]
     public class GenresController : Controller
     {

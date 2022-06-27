@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryBook.Controllers
 {
+    // права доступа
     [Authorize(Roles = "admin")]
     public class BooksController : Controller
     {
@@ -25,6 +26,7 @@ namespace LibraryBook.Controllers
         // GET: Books
         public  IActionResult Index()
         {
+            // вывод списком и подключение таблицы авторов
             var books = db.Books.Include(s => s.Author).ToList();
             return View(books);
         }
@@ -64,11 +66,13 @@ namespace LibraryBook.Controllers
         { 
             if (ModelState.IsValid)
             {
+                // проверка по пути где лежит файл
                 string path = "/Foto/" + Path.GetFileName(file.FileName);
                 using (var filestream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
                     await file.CopyToAsync(filestream);
                 }
+                // проверка по пути где лежит файл
                 string pathtxt = "/textfile/" + Path.GetFileName(txtfile.FileName);
                 using(var filestreamtxt = new FileStream(_appEnvironment.WebRootPath + pathtxt, FileMode.Create))
                 {
@@ -100,6 +104,7 @@ namespace LibraryBook.Controllers
             }
 
             var book = await db.Books.FindAsync(id);
+            // Выдача списком авторов и жанров
             ViewBag.AuthorId = new SelectList(db.Authors, "Id", "Full", db.Authors.Find(book.AuthorId));
             ViewBag.MoreGenre = new SelectList(db.Genres, "Id", "Name", db.GenBooks.Where(s => s.BookId == id).Select(s=>s.GenreId));
             if (book == null)
@@ -126,7 +131,8 @@ namespace LibraryBook.Controllers
             {
                 try
                 {
-                    if(file != null)
+                    // проверка по пути где лежит файл 
+                    if (file != null)
                     {
                         string path = "/Foto/" + Path.GetFileName(file.FileName);
                         using (var filestream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
@@ -137,6 +143,7 @@ namespace LibraryBook.Controllers
                     }
                     if(txtfile != null)
                     {
+                        // проверка по пути где лежит файл
                         string pathtxt = "/textfile/" + Path.GetFileName(txtfile.FileName);
                         using (var filestreamtxt = new FileStream(_appEnvironment.WebRootPath + pathtxt, FileMode.Create))
                         {

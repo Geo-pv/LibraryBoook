@@ -82,6 +82,7 @@ namespace LibraryBook.Controllers
         
         public IActionResult Reating(string userName, float rate, int BookId)
         {
+            // проверка пользователя
             var user = db.Users.Where(s => s.Login == userName)
                 .FirstOrDefault().Id;
             if (user == null)
@@ -92,6 +93,7 @@ namespace LibraryBook.Controllers
                 UserId = user,
                 BookId = BookId
             };
+            // добавление рейтинга черезз подключение к таблицам
             if (db.RateBooks.Where(r => r.UserId == user).Where(r => r.BookId == BookId).FirstOrDefault() == null)
             {
                 db.Add(rateBook);
@@ -106,6 +108,7 @@ namespace LibraryBook.Controllers
         [HttpPost]
         public IActionResult Search(string search)
         {
+
             var listBooks = new List<OblogkaView>();
             foreach (var item in db.Books.Include(s=>s.Author).Where(s => s.Title.Contains(search)).ToList())
             {
@@ -134,6 +137,7 @@ namespace LibraryBook.Controllers
             var listGenres = db.RateBooks.OrderByDescending(s=>s.Rate).Take(10).ToList();
             foreach (var item in listGenres)
             {
+                // остаемся на странице благодаря queryA и добавляем модель отображения через OblogkaView
                 queryA.Add(db.Books.Include(s => s.Author).Where(s => s.Id == item.BookId).FirstOrDefault());
             }
             foreach (var item in queryA)
@@ -155,11 +159,7 @@ namespace LibraryBook.Controllers
             return View(listBooks);
         }
 
-        /// <summary>
-        /// Представление, для чтения текстового файла
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        // метод для читания
         public async Task<IActionResult> ReadBook(int id)
         {
             var file = db.Books.Where(s => s.Id == id).FirstOrDefault().TextFile;
